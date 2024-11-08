@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"  name="viewport"  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Défilement avec boulangères</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Première section avec la première image -->
+    <div class="container">
+
+        <div class="image-section">
+            <img id="hall" src="assets/bg/hall.png" alt="Image du haut" >
+
+            <button id="cookie">
+                <img class="cookie-img" onmouseover="glowImg(this)" onmouseout="unglowImg(this)" src='./assets/cookie.png'/>
+            </button>
+
+            <!-- Affichage du compteur -->
+            <div id="counterDisplay">0 Cookies</div>
+        </div>
+
+        <!-- Bouton permettant de changer de section-->
+        <button id="scrollButton" onmouseover=glow(this) onmouseout=unglow(this)>aller en cuisine</button>
+
+    <!-- Deuxième section avec la seconde image et les boulangères -->
+        <div class="image-section">
+            <img id="kitchen" src="./assets/bg/kitchen3.png" alt="Image du bas">    
+            <!-- Images des boulangères positionnées sur l'image du bas -->
+            <button class="baker baker1" onmouseover="showMessage(this)" onmouseout="hideMessage(this)">
+                <img onmouseover="glowImg(this)" onmouseout="unglowImg(this)" src="assets/baker_girls/baker1bis.png" alt="Boulangère 1">
+                <span id="bakerTooltip1" class="tooltip">Bonjour!<br> (50 Cookies)</span>  
+            </button>
+            <!-- <img src="assets/baker_girls/baker2.png" alt="Boulangère 2" class="baker baker2"> -->
+            <!-- <img src="assets/baker_girls/baker3.png" alt="Boulangère 3" class="baker baker3"> -->
+            <button class="baker baker4" onmouseover="showMessage(this)" onmouseout="hideMessage(this)">
+                <img onmouseover="glowImg(this)" onmouseout="unglowImg(this)" src="assets/baker_girls/baker4.png" alt="Boulangère 4">
+                <span id="bakerTooltip4" class="tooltip">Prete a cuire des cookies!<br> (200 Cookies)</span>    
+            </button>
+            <button class="baker baker5" onmouseover="showMessage(this)" onmouseout="hideMessage(this)">
+                <img onmouseover="glowImg(this)" onmouseout="unglowImg(this)" src="assets/baker_girls/baker5.png" alt="Boulangère 5">
+                <span id="bakerTooltip5" class="tooltip">Besoin d’aide?<br> (300 Cookies)</span>  
+            </button>
+    </div>
+
+    <script src="button-script.js"></script>
+    <script src="cookie-script.js"></script>
+    <script src="baker-script.js"></script>
+    <script src="milk-script.js"></script>
+    <!-- <script src="game-save.js"></script> -->
+
+    <!-- JavaScript intégré -->
+    <script>
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+
+        function glowImg(x) {
+            imageName = x.src.substr(0, x.src.length -4 );
+            x.src = imageName + "-glowing.png";
+        }
+            
+        function unglowImg(x) {
+            x.src = x.src.substr(0, x.src.length - 12) + ".png";
+        }
+
+        function glow(x){
+            x.style.backgroundColor = 'white';
+        }
+
+        function unglow(x) {
+            x.style.backgroundColor = 'lightblue';
+        }
+
+        function showMessage(element) {
+            const tooltip = element.querySelector(".tooltip");
+            tooltip.style.visibility = "visible";
+        }
+        function hideMessage(element) {
+            const tooltip = element.querySelector(".tooltip");
+            tooltip.style.visibility = "hidden";
+        }
+
+        // Ajoute l'attribut draggable="false" à chaque image de boulangère
+        document.querySelectorAll('*').forEach(element => {
+            element.setAttribute('draggable', 'false');
+            element.setAttribute('pointer-events', 'none');
+        });
+    </script>
+    
+</body>
+</html>
